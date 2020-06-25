@@ -1,10 +1,9 @@
-package main_test
+package main
 
 import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	. "main"
 	"net/http"
 	"net/http/httptest"
 	"testing"
