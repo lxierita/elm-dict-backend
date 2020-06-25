@@ -7,6 +7,9 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func Search(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+//Search writes and sends request to 3rd party API based on given params
+func Search(w http.ResponseWriter, r *http.Request) {
+	ps := httprouter.ParamsFromContext(r.Context())
+
+	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("word"))
 }
