@@ -12,16 +12,20 @@ import (
 )
 
 func TestRouter_should_register_handlers_correctly(t *testing.T) {
+
+	//implement routing
 	router := hr.New()
 	routing.ConfigRoutes(router)
 	searchRoute := "/test/:name"
-	w := httptest.NewRecorder()
 
+	//add stubbed handler
 	router.Handle(http.MethodGet, searchRoute, func(w http.ResponseWriter, req *http.Request, ps hr.Params) {
 		fmt.Fprintf(w, "%v!", ps.ByName("name"))
 	})
 
+	//serve requests
 	req := httptest.NewRequest(http.MethodGet, "/test/boo", nil)
+	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
 	res := w.Result()
