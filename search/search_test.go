@@ -12,9 +12,8 @@ func TestSearch_should_send_request_to_mw_api(t *testing.T) {
 	Search(w, req)
 
 	res := w.Result()
-	expectedType := "application/json; charset=utf-8"
 
-	if got := res.Header.Get("Content-Type"); got != expectedType {
-		t.Errorf("\nunexpected response type from server: \nexpect: %v\ngot: %v", expectedType, got)
+	if got := res.StatusCode; got != 200 {
+		t.Errorf("\nBad status code: \nexpect: 200\ngot: %v", got)
 	}
 }
