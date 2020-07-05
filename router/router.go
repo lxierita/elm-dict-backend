@@ -16,10 +16,13 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 //ConfigRoutes configures the routes and handlers of the app
 func ConfigRoutes(r *httprouter.Router) {
 	r.GET("/", Index)
-	r.Handler("GET", "/search/:word", http.HandlerFunc(allowAll))
+	r.Handler("GET", "/search/:word", allowAll(http.HandlerFunc(s.Search)))
 }
 
-func allowAll(w http.ResponseWriter, r *http.Request) {
+func allowAll(h http.Handler) http.Handler {
+	var w http.ResponseWriter
+	var r *http.Request
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	s.Search(w, r)
+	h.ServeHTTP(w, r)
+	return h
 }
