@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 //MWEndpoint is the endpoint of Merriam-Webster API
@@ -15,7 +17,7 @@ const APIKey = "24375962-78c5-4fbc-a585-b37ed4088caf"
 
 //Search writes and sends request to 3rd party API based on given params
 func Search(w http.ResponseWriter, r *http.Request) {
-	// ps := httprouter.ParamsFromContext(r.Context())
+	ps := httprouter.ParamsFromContext(r.Context())
 
 	r.URL.Scheme = "https"
 	r.URL.Host = "dictionaryapi.com"
@@ -24,8 +26,6 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	ts := &http.Transport{
 		Proxy: http.ProxyURL(r.URL),
 	}
-	fmt.Println(r.URL)
-	fmt.Println(r.Method)
 	res, err := ts.RoundTrip(r)
 	if err != nil {
 		log.Fatalf("RoundTrip failed: \n%v", err)
