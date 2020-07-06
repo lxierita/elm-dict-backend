@@ -19,10 +19,16 @@ func ConfigRoutes(r *httprouter.Router) {
 	r.Handler("GET", "/search/:word", allowAll(http.HandlerFunc(s.Search)))
 }
 
-func allowAll(h http.Handler) http.Handler {
+func decorateHeader(w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+}
+
+func allowAll(h http.HandlerFunc) http.Handler {
 	var w http.ResponseWriter
 	var r *http.Request
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	h.ServeHTTP(w, r)
-	return h
+	decorateHeader(w)
+	return func() http.Handler {
+		h.ServeHTTP(w, r)
+		return h
+	}()
 }
