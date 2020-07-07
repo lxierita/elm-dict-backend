@@ -1,6 +1,12 @@
 package search 
 
-
+import (
+	"fmt"
+	"log"
+	"context"
+	//justify it 
+	_ "github.com/go-sql-driver/mysql"
+)
 const (
 	host     = "localhost"
 	port     = "3326"
