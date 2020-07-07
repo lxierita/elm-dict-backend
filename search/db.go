@@ -3,7 +3,9 @@ package search
 import (
 	"fmt"
 	"log"
+	"database/sql" 
 	"context"
+
 	//justify it 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -23,14 +25,11 @@ func ConnectDB(){
 	if err != nil {
 		log.Fatal("unable to use data source name", err)
 	}
-	ping()
+	ctx, stop := context.WithCancel(context.Background())
+	defer stop()
+
+	if err := db.PingContext(ctx); err != nil {
+		log.Fatal(err)
+	  }
 }
 
-func ping(ctx context.Context) {
-	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
-	defer cancel()
-
-	if err := pool.PingContext(ctx); err != nil {
-		log.Fatalf("unable to connect to database: %v", err)
-	}
-}

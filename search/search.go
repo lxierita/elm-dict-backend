@@ -8,5 +8,4 @@ import (
 func Search(w http.ResponseWriter, r *http.Request) {
 	// ps := httprouter.ParamsFromContext(r.Context())
 	ConnectDB()
-
 }
