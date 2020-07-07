@@ -7,7 +7,7 @@ import (
 )
 
 //MWEndpoint is the endpoint of Merriam-Webster API
-const MWEndpoint = "https://www.dictionaryapi.com/api/v3/references/learners/json/"
+const MWEndpoint = "/api/v3/references/learners/json/"
 
 //APIKey is the api key
 const APIKey = "24375962-78c5-4fbc-a585-b37ed4088caf"
