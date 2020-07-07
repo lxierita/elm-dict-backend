@@ -1,14 +1,15 @@
-package search 
+package search
 
 import (
+	"context"
+	"database/sql"
 	"fmt"
 	"log"
-	"database/sql" 
-	"context"
 
-	//justify it 
+	//justify it
 	_ "github.com/go-sql-driver/mysql"
 )
+
 const (
 	host     = "localhost"
 	port     = "3326"
@@ -19,7 +20,7 @@ const (
 )
 
 //ConnectDB to the database
-func ConnectDB(){
+func ConnectDB() {
 	dsn := fmt.Sprintf("%v:%v@/%v", user, password, dbname)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
@@ -30,6 +31,5 @@ func ConnectDB(){
 
 	if err := db.PingContext(ctx); err != nil {
 		log.Fatal(err)
-	  }
+	}
 }
-

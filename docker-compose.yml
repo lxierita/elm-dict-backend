@@ -14,9 +14,9 @@ services:
         ports:
         - 8080:8080
 
-    goapi:
+    gosql:
         build: .
         ports: 
             - "5000:5000"
-        image: goapi:1.0
+        image: gosql:1.0
     
