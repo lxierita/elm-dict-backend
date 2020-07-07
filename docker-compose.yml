@@ -8,10 +8,15 @@ services:
             - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: example
-            
+    adminer: 
+        image: adminer
+        restart: always
+        ports:
+        - 8080:8080
+
     goapi:
         build: .
         ports: 
-            - "8080:8080"
+            - "5000:5000"
         image: goapi:1.0
     
