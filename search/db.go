@@ -26,10 +26,8 @@ func ConnectDB() {
 	if err != nil {
 		log.Fatal("unable to use data source name", err)
 	}
-	ctx, stop := context.Background()
-	defer stop()
 
-	if err := db.PingContext(ctx); err != nil {
+	if err := db.PingContext(context.Background()); err != nil {
 		log.Println(err)
 	}
 	log.Println("Connected")
