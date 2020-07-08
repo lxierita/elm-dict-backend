@@ -11,25 +11,26 @@ import (
 )
 
 const (
-	host     = "localhost"
-	port     = "3326"
+	host     = "db"
+	port     = "3306"
 	user     = "root"
 	password = "example"
-	dbname   = "dictionary"
+	dbname   = "test"
 	sslmode  = "disable"
 )
 
 //ConnectDB to the database
 func ConnectDB() {
-	dsn := fmt.Sprintf("%v:%v@/%v", user, password, dbname)
+	dsn := fmt.Sprintf("%v:%v@%v/%v", user, password, host, dbname)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal("unable to use data source name", err)
 	}
-	ctx, stop := context.WithCancel(context.Background())
+	ctx, stop := context.Background()
 	defer stop()
 
 	if err := db.PingContext(ctx); err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
+	log.Println("Connected")
 }
